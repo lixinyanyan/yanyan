@@ -1,0 +1,130 @@
+#include<iostream>
+#include<iomanip>
+#include<cmath>
+#include<string>
+#include<cstring>
+using namespace std;
+class Calculater
+{
+ bool b;
+ double n,n2,m;
+ string fu;
+ //加减乘除
+ double ope()
+ {
+  cin>>n2;
+  switch(fu[0])
+  {
+  case '+':
+	  return n+n2;
+  case '-':
+	  return n-n2;
+  case '*':
+	  return n*n2;
+  case '/':
+	  return n/n2;
+  }
+  return 0;
+ }
+ //幂指
+ double power()
+ {
+  cin>>n2;
+  return pow(n,n2);
+ }
+ //开方
+ double extract()
+ {
+  return sqrt(n);
+ }
+ //进制转换
+ void trans()
+ {
+  int o;
+  if(n!=floor(n))
+  {
+   cout<<"不是整数!"<<endl;
+  }
+  else if(n>0)
+  {
+   o=atoi(fu.c_str());
+   trans(o,(int)n);
+   cout<<endl;
+  }
+  else
+  {
+   cout<<"请转换一个正整数!"<<endl;
+  }
+ }
+ void trans(int o,int _n)
+ {
+  if(o==10)
+  {
+   cout<<_n<<endl;
+   return;
+  }
+  int i=_n%o;_n/=o;
+  if(_n!=0)     trans(o,_n);
+  if(i<10)cout<<i;
+  else cout<<(char)(i+65);
+ }
+ //三角函数
+ double triangle()//三角函数
+ {
+  if(fu=="sin")
+   return sin(n);
+  if(fu=="cos")
+   return cos(n);
+  if(fu=="tan")
+   return tan(n);
+  if(fu=="cot")
+   return 1/tan(n);
+  return 0;
+ }
+public:
+ Calculater()
+    {
+     n=n2=m=0;
+     b=false;
+    }
+    void func()
+	{
+ printf( "加：+         减：-\n","") ;
+ printf( "乘：*         除：/\n","") ;
+ printf( "幂：^         \n","") ;
+ printf( "正弦：sin     余弦：cos\n","") ;
+ printf( "正切：tan     余切：cot\n","") ;
+ printf( "结束：e       归零：q\n","") ;
+ printf( "开平方：#     二进制转换：2\n","") ;
+     cin>>n;
+     while(cin>>fu)
+     {
+      b=false;
+      switch(fu[0])
+      {
+      case '+':n=ope();break;
+      case '-':n=ope();break;
+      case '*':n=ope();break;
+      case '/': n=ope();break;
+      case '^':n=power();break;
+	  case '2':trans();break;
+	  case '#':n=extract();break;//开方
+       case 'q':cin>>n;break;
+       case 'e':return;
+       case 's':n=triangle();break;
+       case 'c':n=triangle();break;
+       case 't':n=triangle();break;
+       default:cout<<"error......"<<endl;break;
+      }
+      cout<<"= "<<n<<endl;
+      if(b) continue;
+     }
+    }
+}
+Cal;
+int main()
+{
+ Cal.func();
+ system("pause");
+ return 0;
+}
